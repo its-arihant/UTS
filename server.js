@@ -56,6 +56,22 @@ app.get("/signup_volunteer", (req,res)=>{
 app.get("/login_vol", (req,res)=>{
     res.render("vol_login.ejs")
 })
+//interface
+app.get("/inter", (req,res)=>{
+  res.render("inter.ejs")
+})
+app.get("/inter2", (req,res)=>{
+  res.render("inter2.ejs")
+})
+
+app.get("/forms", (req,res)=>{
+  res.render("forms.ejs")
+})
+app.get("/forms2", (req,res)=>{
+  res.render("forms2.ejs")
+})
+
+
 app.get("/book_cab", (req,res)=>{
     res.render("book_cab.ejs")
 })
