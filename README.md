@@ -1,4 +1,4 @@
-# uts-node
+# United Transit Services
 
 UTS in Node backend
 # About the website
