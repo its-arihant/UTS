@@ -16,6 +16,7 @@ const saltRounds = 10;
 env.config();
 connectDB();
 
+app.use(express.json());
 app.use(bodyParser.urlencoded({extended:true}))
 app.use(express.static("public"))
 
@@ -70,7 +71,9 @@ app.get("/forms", (req,res)=>{
 app.get("/forms2", (req,res)=>{
   res.render("forms2.ejs")
 })
-
+app.get("/faceID", (req,res)=>{
+  res.render("face_recog.ejs")
+})
 
 app.get("/book_cab", (req,res)=>{
     res.render("book_cab.ejs")
@@ -83,6 +86,8 @@ app.get("/account", (req,res)=>{
       res.redirect("/login_user")
     }
 })
+
+
 
 app.get("/auth/google", passport.authenticate("google", {
   scope:["profile", "email"],
@@ -101,8 +106,45 @@ app.get("/logout", (req,res)=>{
   })
 })
 
+function pause(milliseconds) {
+  return new Promise(resolve => setTimeout(resolve, milliseconds));
+}
+//post routes   -- face
+app.get("/acc_for_face", (req, res) => {
+  // Access the userName from the query parameters for GET requests
+  console.log("acc_for_face route handler called");
+  const userName = req.query.userName;
+  console.log(userName);
+  if (userName) {
+    // Render the template with the userName variable
+    res.render("acc.ejs", { userName: userName });
+  } else {
+    // Send an error response or handle the situation accordingly
+    res.render("acc.ejs", { userName: "Alan Saji" });
+  }
 
-//post routes
+});
+
+
+app.post('/acc-for-face', (req, res) => {
+  const name = req.body.userName;
+  console.log(name);
+  if (name === "Alan") {
+    pause(3000).then(() => {
+      console.log("Execution paused for 3 seconds");
+      // Code to execute after the pause
+      res.json({ redirectUrl: '/acc_for_face', userName: name }); // Include userName in the response
+    });
+    // Redirect to '/acc_for_face' route
+     
+  } else {
+    res.json({ success: false, message: "unidentified" }); // Respond with JSON
+  }
+});
+//--face
+
+
+
 app.post("/signup_user", (req,res)=>{
   const phone = req.body.phoneNo;
   const pass = req.body.password;

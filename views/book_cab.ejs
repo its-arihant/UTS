@@ -40,9 +40,16 @@
     <div id="searchResults"></div>
 </div>
 <div id="map"></div>
-<button style="display: flex; margin: auto; background-color: yellow; ;" id="startNavigation">Start Navigation</button>
+
+<button onclick="inter()" style="display: flex; margin: auto; background-color: yellow; ;" id="startNavigation">Book Taxi</button>
     
     <script type="module" src="js/config.js"></script>
     <script type="module" src="js/script.js"></script>
+    <script>
+      function inter() {
+    // Replace '/your-route' with the actual route you want to redirect to
+    window.location.href = '/inter';
+  }
+    </script>
 </body>
 </html>

@@ -1,3 +1,4 @@
+//MAP
 const searchInput = document.getElementById('searchInput');
 const voiceBtn = document.getElementById('voiceBtn');
 const searchResults = document.getElementById('searchResults');

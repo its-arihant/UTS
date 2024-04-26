@@ -1,3 +1,4 @@
+//CONNECT TO MONGO DB LOCAL INSTANCE
 import mongoose from 'mongoose';
 
 const connectDB = async () => {

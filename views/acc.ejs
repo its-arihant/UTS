@@ -71,7 +71,10 @@
               <div class="card shadow-sm">
                 <div class="card-header bg-transparent text-center">
                   <img class="profile_img" src="https://source.unsplash.com/600x300/?student" >
-                  <h3>Mansaa Narang</h3>
+                  <% if(locals.userName){%>
+                      <h3><%= userName %></h3>
+                  <%} %>
+                  
                 </div>
                 <div class="card-body">
                   <p class="mb-0"><strong class="pr-1">USER ID:</strong>321000001</p>
@@ -101,7 +104,7 @@
                     <tr>
                       <th width="30%">Gender</th>
                       <td width="2%">:</td>
-                      <td>Female</td>
+                      <td>Male</td>
                     </tr>
                     <tr>
                         <th width="30%">Postal Code:</th>
