@@ -17,8 +17,9 @@ Make sure you have the following installed on your machine:
 1. **Clone the Repository:**
 
    ```bash
-   cd your-project
+   cd your-project/
    git clone https://github.com/Alansaji2003/uts-node.git
+   cd UTS/
    
 
 2. **Install Dependencies:** 
