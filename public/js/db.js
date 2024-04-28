@@ -1,15 +1,18 @@
-//CONNECT TO MONGO DB LOCAL INSTANCE
 import mongoose from 'mongoose';
 
-const connectDB = async () => {
-    try {
-        const dbName = 'UTS';
-        const dbURI = `mongodb://localhost:27017/${dbName}`;
-        await mongoose.connect(dbURI);
-        console.log(`Connected to MongoDB: ${dbName}`);
-    } catch (error) {
-        console.error('Error connecting to MongoDB:', error);
-    }
-};
-//arihant was here 
+const uri = "mongodb+srv://itsarihant18:ZyhbMUCmjSWshHNQ@cluster0.gs6mye7.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+
+async function connectDB() {
+  try {
+    await mongoose.connect(uri, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      // Other options if needed
+    });
+    console.log("You successfully connected to MongoDB!");
+  } catch (error) {
+    console.error("MongoDB connection error:", error);
+  }
+}
+
 export default connectDB;

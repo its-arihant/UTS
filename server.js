@@ -145,62 +145,45 @@ app.post('/acc-for-face', (req, res) => {
 
 
 
-app.post("/signup_user", (req,res)=>{
+app.post("/signup_user", async (req, res) => {
   const phone = req.body.phoneNo;
   const pass = req.body.password;
   const fname = req.body.firstName;
   const lname = req.body.lastName;
-  const email = "dummy@uts.com"
+  const email = req.body.email; // Assuming email is provided in the form
 
-  const createUser = async () => {
-    try {
-        bcrypt.hash(pass,saltRounds, async (err, hash)=> {
-          if(err){
-            console.log("Error Hashing Password", err);
-          }else{
-            const newUser = new User({
-              firstName:fname,
-              lastName:lname,
-              phone: phone,
-              password: hash,
-              email : email
-          });
-          await newUser.save();
-          console.log('User created:', newUser);
-          req.login(newUser, (err)=>{
-            console.log(err);
-            res.redirect("/account")
-          })
-          }
-          
-        })
-        
-    } catch (error) {
-        console.error('Error creating user:', error);
+  try {
+    // Hash the password
+    const hashedPassword = await bcrypt.hash(pass, saltRounds);
+
+    // Check if the user already exists
+    const existingUser = await User.findOne({ phone: phone });
+    if (existingUser) {
+      return res.send("Phone Number already registered");
     }
-  };
-  
-  const checkUser = async (condition) => {
-    try {
-      // Find a document that matches the condition
-      const user = await User.findOne(condition);
-      
-      // Check if the document exists
-      if (user) {
-          console.log('User exists:', user);
-          res.send("Phone Number already Registerd")
-      } else {
-        createUser();
-      }
+
+    // Create a new user document
+    const newUser = new User({
+      email: email,
+      firstName: fname,
+      lastName: lname,
+      phone: phone,
+      password: hashedPassword,
+    });
+
+    // Save the new user to the database
+    await newUser.save();
+
+    console.log('User created:', newUser);
+
+    // Redirect to account page or any other page as needed
+    res.redirect("/account");
   } catch (error) {
-      console.error('Error checking row:', error);
+    console.error('Error creating user:', error);
+    res.status(500).send("Error creating user");
   }
-  }
+});
 
-  
-checkUser({ phone: phone });
-
-})
 
 app.post("/login_user", passport.authenticate("local", {
   successRedirect:"/account",
